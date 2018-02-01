@@ -9,7 +9,7 @@ cache:
 before_script:
 - npm install -g @angular/cli
 script:
-  webpack
+- webpack
 - ng build --prod --aot
 # Use Chromium instead of Chrome.
 - export CHROME_BIN=chromium-browser
