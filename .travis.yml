@@ -8,8 +8,9 @@ cache:
      - ./node_modules
 before_script:
 - npm install -g @angular/cli
-script: 
+script:
 - ng build --prod --aot
+- webpack
 # Use Chromium instead of Chrome.
 - export CHROME_BIN=chromium-browser
 - xvfb-run -a npm run test -- --single-run --no-progress --browser=ChromeNoSandbox
