@@ -9,17 +9,44 @@
         </button>
         
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/home">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/taxon">Taxon</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/removal">Removal</a>
-                </li>
-            </ul>
+                <div>
+                        <ul class="nav navbar-nav pull-left">
+                            <li class="nav-item">
+                                <a class="nav-link" routerLink="/home" translate>navigation.home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" routerLink="/taxon" translate>navigation.taxonomy</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" routerLink="/removal" translate>navigation.removal</a>
+                            </li> 
+                        </ul>
+                </div>
+                
+                <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span *ngIf="'fi' === translate.currentLang">
+                                    FI
+                                </span>
+                                <span *ngIf="'se' === translate.currentLang">
+                                    SE
+                                </span>
+                                <span *ngIf="'en' === translate.currentLang">
+                                    EN
+                                </span>
+                        </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="single-button" class="dropdown-menu right">
+                                <li  role="menuitem">
+                                <a class="navbar-link link" (click)="switchLanguage('fi')">Suomeksi</a>
+                                </li>
+                                <li  role="menuitem">
+                                <a class="navbar-link link" (click)="switchLanguage('se')">På svenska</a>
+                                </li>
+                                <li  role="menuitem">
+                                <a class="navbar-link link" (click)="switchLanguage('en')">In English</a>
+                                </li>
+                            </ul>
+                </div>
         </div>
     </div>
 </nav>

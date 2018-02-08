@@ -7,11 +7,13 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { TaxonService } from './service/taxon.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 
 @NgModule({
   imports: [
     CommonModule,
+    TranslateModule,
     RouterModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
