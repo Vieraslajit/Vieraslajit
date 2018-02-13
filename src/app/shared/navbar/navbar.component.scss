@@ -5,6 +5,7 @@
 
 .navbar-dark .navbar-brand {
     color: #fff;
+    font-size: 130%;
 }
 
 .navbar-dark .nav-link {
@@ -14,7 +15,7 @@
 
 .navbar-dark .navbar-toggler-icon {
     color: #fff;
-    
+    font-size: 70%;
 }
 
 /*Hover state for top level links*/
@@ -22,3 +23,24 @@ li:hover a {
     background: #f78706;
 }
 
+.dropdown-menu {
+
+    background-color: #f89525;
+    color: #fff;
+}
+
+.btn {
+    font-size: 75%;
+    color: #fff;
+    background-color: #383838;
+    
+}
+
+@media (max-width: 575px) {
+    .navbar {
+      .container {
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+  }
