@@ -1,11 +1,12 @@
-import { Component, OnInit, OnDestroy, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewEncapsulation, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaxonService } from '../../shared/service/taxon.service';
 import { TaxonomyDescription, TaxonomyImage, Taxonomy } from '../../shared/model/Taxonomy';
 import { Observable } from 'rxjs/Observable';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs/Subscription';
-
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ObservationComponent } from '../../observation/observation.component';
 
 
@@ -30,14 +31,18 @@ export class TaxonCardComponent implements OnInit, OnDestroy {
   family: Array<Taxonomy>;
   quarantinePlantPest: boolean;  // Vaarallinen kasvintuhoaja
   comparison: boolean;
-  isFirstOpen:boolean;
-  customClass:string ;
+  isFirstOpen: boolean;
+  customClass: string;
+  modalRef: BsModalRef;
+  selectedImage: TaxonomyImage;
+
+
   constructor(private route: ActivatedRoute, private router: Router,
-    private taxonService: TaxonService, private translate: TranslateService) {  
+    private taxonService: TaxonService, private translate: TranslateService, private modalService: BsModalService) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
-   
+
   }
 
   ngOnInit() {
@@ -64,8 +69,8 @@ export class TaxonCardComponent implements OnInit, OnDestroy {
     });
     this.taxonService.getTaxonDescription(this.id, this.translate.currentLang).subscribe(data => {
       this.desc = data[0];
-      
-      
+
+
     });
     this.taxonService.getTaxonMedia(this.id, this.translate.currentLang).subscribe(data => {
       this.media = data;
@@ -102,5 +107,10 @@ export class TaxonCardComponent implements OnInit, OnDestroy {
       this.querySub.unsubscribe();
     }
   }
-  
+
+  openImage(template: TemplateRef<any>, image: TaxonomyImage) {
+    this.selectedImage = image;
+    this.modalRef = this.modalService.show(template);
+  }
+
 }
