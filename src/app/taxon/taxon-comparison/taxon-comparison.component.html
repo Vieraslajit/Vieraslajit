@@ -1,12 +1,15 @@
 <div class="container">
-    <h1 translate>comparison.title</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eleifend imperdiet leo nec dictum. Proin sem nibh, pharetra
-      vitae nisl non, iaculis pulvinar lacus. Aliquam vehicula erat massa, in rhoncus libero egestas cursus. Duis finibus condimentum
-      quam, ut tempor ante tincidunt et. Pellentesque ornare leo eu augue bibendum, et pulvinar lorem vulputate. Nulla eu pulvinar
-      lectus. Duis tristique pretium quam, quis maximus sem bibendum vel. Morbi eget dolor sollicitudin, dignissim lorem vel,
-      commodo metus.
-    </p>
-    <div class="card-deck">
+  <div>
+      <h1 translate>comparison.title</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eleifend imperdiet leo nec dictum. Proin sem nibh, pharetra
+        vitae nisl non, iaculis pulvinar lacus. Aliquam vehicula erat massa, in rhoncus libero egestas cursus. Duis finibus condimentum
+        quam, ut tempor ante tincidunt et. Pellentesque ornare leo eu augue bibendum, et pulvinar lorem vulputate. Nulla eu pulvinar
+        lectus. Duis tristique pretium quam, quis maximus sem bibendum vel. Morbi eget dolor sollicitudin, dignissim lorem vel,
+        commodo metus.
+      </p>
+  </div>
+    
+    <div class="row">
       <div class="col-md-6">
         <div class="card" *ngIf="taxon">
           <div class="card-header">
@@ -17,13 +20,12 @@
                   <slide>
                       <img src="{{media.fullURL}}" id="multimedia" alt="First slide" style="display: block; width: 100%;">
                       <div class="carousel-caption d-none d-md-block">
-                        <h3>{{taxon?.vernacularName}}</h3>
-                        <p>{{taxon?.scientificName}}</p>
                       </div>
                     </slide>
               </carousel>
           </div>
           <div class="card-block">
+              <div class="card-body">
             <div>
               <strong translate>taxon.name</strong>
               {{taxon?.vernacularName}}
@@ -50,10 +52,10 @@
               <span>{{(taxon?.occurrenceInFinland | label: 'MX.occurrenceInFinlandEnum' | async) || 'taxon.unknown' | translate }}</span>
             </div>
           </div>
+          </div>
         </div>
       </div>
       <div class="col-md-6">
-          
         <div class="card">
           <div class="card-header">
             <div class="row">
@@ -83,13 +85,12 @@
                   <slide *ngFor="let media of selected?.multimedia">
                       <img src="{{media.fullURL}}" id="multimedia" alt="First slide" style="display: block; width: 100%;">
                       <div class="carousel-caption d-none d-md-block">
-                        <h3>{{selected?.vernacularName}}</h3>
-                        <p>{{selected?.scientificName}}</p>
                       </div>
                     </slide>
               </carousel>
           </div>
           <div class="card-block">
+              <div class="card-body">
             <div>
               <strong translate>taxon.name</strong>
               {{selected?.vernacularName}}
@@ -115,6 +116,7 @@
               <strong translate>taxon.occurrence</strong>
               <span>{{(taxon?.occurrenceInFinland | label: 'MX.occurrenceInFinlandEnum' | async) || 'taxon.unknown' | translate }}</span>
             </div>
+          </div>
           </div>
         </div>
       </div>
