@@ -70,11 +70,11 @@
               </div>
               <div class="col-6">
                   <div class="row">
-                    <div class="col-3"><button (click)="prev()" class="btn btn-primary btn-sm oi oi-caret-left icon float-right" id="caret-left"></button></div>
+                    <div class="col-3"><button (click)="prev()" class="btn btn-primary btn-sm oi oi-caret-left icon float-left" id="caret-left"></button></div>
                     <div class="col-6 text-center" id="currentindex">
                          {{current + 1}} / {{taxonomy?.length}}
                     </div>
-                    <div class="col-3"><button (click)="next()" class="btn btn-primary btn-sm oi oi-caret-right icon" id="caret-right"></button></div>
+                    <div class="col-3"><button (click)="next()" class="btn btn-primary btn-sm oi oi-caret-right icon float-right" id="caret-right"></button></div>
                   </div>
                 </div>
             </div>
