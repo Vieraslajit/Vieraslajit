@@ -1,9 +1,32 @@
-.card {
-    margin: 10px;
-    .card-block {
-        padding: 10px;
-    }
+@import '../../../assets/styles/vars';
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+
+#carouseldropdown:hover {
+    cursor: pointer;
+    color: $primary;
 }
-.cursive {
-    font-style: oblique;
+
+#carouselmenuitem:hover {
+    background-color: $primary;
+}
+
+#multimedia {
+    object-fit: cover;
+}
+
+#caret-left, #caret-right {
+    max-height: 100%;
+    font-size: 10px;
+}
+
+#caret-left:hover {
+    cursor: pointer;
+    color: $primary;
+}
+
+#caret-right:hover {
+    cursor: pointer;
+    color: $primary;
 }

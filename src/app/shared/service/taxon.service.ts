@@ -28,7 +28,7 @@ export class TaxonService {
     return this.apiService
       .taxonomyFindById(LajiApi.Endpoints.taxonSpecies, taxonId,
         {
-          informalGroupFilters: group, onlyFinnish: false, hasMediaFilter: true, lang: lang
+          informalGroupFilters: group, onlyFinnish: false, hasMediaFilter: true, includeMedia: true, lang: lang
         });
   }
 
