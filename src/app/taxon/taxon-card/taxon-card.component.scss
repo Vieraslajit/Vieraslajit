@@ -1,35 +1,38 @@
-.card {
-    margin: 10px;
-        
-    .card-block {
-        padding: 10px;
-        border:  #2C3539;
-    }
+@import '../../../assets/styles/vars';
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
 
-    .card-header{
-        background-color: #2C3539 !important;
-        color: white;
-        border:  #2C3539;
-       
-     }
-     .panel-default{
-        border:  #2C3539;
-    }
-    .panel-group{
-        background-color: #2C3539;
-    }
-   
+#taxonh1 {
+    padding: 25px;
+}
+#taxoncard {
+    margin-top: 10px;
+    border: none;
 }
 
+#taxoncard-right {
+    margin-top: 10px;
+}
 
 .cardAccordion{
     background-color: #2C3539 !important;
     color: white; 
 }
 
+#accordion:hover {
+    color: $primary;
+    cursor: pointer;
+}
 .cursive {
     font-style: oblique;
 }
-.head{
-    padding: 10px !important;
+
+#comparison {
+    width: 100%;
+    color: white;
+}
+
+#report {
+    width: 100%;
 }

@@ -26,9 +26,10 @@
 
 #mainNav .navbar-brand {
     color: $content-background;
+    font-size: 20px;
 
     &:hover {
-        color: #e4c571;
+        color: $content-background-highlight-dark;
     }
 }
 
@@ -51,7 +52,7 @@
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link:hover {
-    color: #e4c571;
+    color: $content-background-highlight-dark;
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link:active, #mainNav .navbar-nav li.nav-item a.nav-link:focus {
@@ -60,8 +61,8 @@
  
 /*Hover state for top level links*/
 .navbar-nav li:hover a {
-    background: $navbar-background-hover;
-    color: #e4c571;
+    background: $primary;
+    color: $content-background-highlight-dark;
 }
 
 #dropdown-about {
@@ -70,7 +71,7 @@
     color: $content-background;
     &:hover {
         background: $primary;
-        color: #e4c571;
+        color: $content-background-highlight-dark;
     }
 }
 
@@ -81,7 +82,7 @@
     cursor: pointer;
     &:hover {
         background: $primary;
-        color: #e4c571;
+        color: $content-background-highlight-dark;
     }
 }
 
@@ -110,7 +111,7 @@
 
 #dropdown-menu-item:hover {
     background: $primary;
-    color: #e4c571;
+    color: $content-background-highlight-dark;
 }
 
 #search-icon   {
@@ -119,7 +120,7 @@
 }
 
 #search-icon:hover {
-    color: #e4c571;
+    color: $content-background-highlight-dark;
 }
 
 #language-selector {
