@@ -6,6 +6,7 @@ import { Taxonomy } from '../../shared/model/Taxonomy';
 import { ListService } from '../../shared/service/list.service';
 import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { Subscription } from 'rxjs/Subscription';
+import { StaticComponent } from '../../static/static.component';
 
 @Component({
   selector: 'vrs-filist',
@@ -14,17 +15,21 @@ import { Subscription } from 'rxjs/Subscription';
   encapsulation: ViewEncapsulation.None
 })
 export class FilistComponent implements OnInit {
-  private subTrans: Subscription;
+  private subTransList: Subscription;
+  private subTransAdm: Subscription;
   filist: Taxonomy[];
   columns = [];
+  staticId: string;
 
   constructor( private listService: ListService, private translate: TranslateService, private router:Router) { }
-
-  
-
     ngOnInit() {
-    this.subTrans = this.translate.onLangChange.subscribe(this.update.bind(this));
-    this.update();
+      this.setStaticId(this.translate.currentLang);
+      this.subTransList = this.translate.onLangChange.subscribe(this.update.bind(this));
+      this.subTransAdm= this.translate.onLangChange.subscribe((event) =>{
+          this.setStaticId(event.lang);
+          this.update();
+      });
+      this.update();
   }
 
   update() {
@@ -47,8 +52,21 @@ export class FilistComponent implements OnInit {
     });
   }
 
+  setStaticId(lang: string){
+    if (lang== "fi"){
+      this.staticId= "i-115";
+    }
+    if (lang== "en"){
+      this.staticId= "i-119";
+    }
+    if (lang== "sv"){
+      this.staticId= "i-124";
+    }
+  }
+
   ngOnDestroy() {
-    this.subTrans.unsubscribe();
+    this.subTransList.unsubscribe();
+    this.subTransAdm.unsubscribe();
   } 
 
   onSelect(event) {

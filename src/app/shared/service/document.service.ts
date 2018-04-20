@@ -9,7 +9,11 @@ export class DocumentService {
   constructor(private apiService: ApiService) { }
 
 
-  createDocument(userToken: string, data: Document): Observable<Document> {
-    return this.apiService.documentApi(LajiApi.Endpoints.createDocument, userToken, data);
+  createDocument(personToken: string, data: Document): Observable<Document> {
+    return this.apiService.documentPost(LajiApi.Endpoints.createDocument, personToken, data);
+  }
+
+  updateDocument(id: string, data: Document, personToken: string): Observable<Document> {
+    return this.apiService.documentUpdate(LajiApi.Endpoints.getDocument, id, data, personToken);
   }
 }

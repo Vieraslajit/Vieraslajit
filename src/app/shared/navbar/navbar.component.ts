@@ -8,8 +8,6 @@ import { InformationService } from '../service/information.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Subscription } from 'rxjs/Subscription';
 
-// ID of the parent element of general static pages
-const PARENT_ID= "i-2";
 
 
 @Component({
@@ -24,8 +22,9 @@ export class NavbarComponent implements OnInit {
   loggedIn = false;
   menu: Array<any> = new Array();
   loginSub: Subscription;
-  translateSub:Subscription;
-  parentId= "";
+  translateSub: Subscription;
+  rootId: string = "";
+  currentId: string= "";
   
   constructor(private modalService: BsModalService, private router: Router, private userService: UserService,
      private informationService: InformationService, private translate:TranslateService) {
@@ -51,22 +50,20 @@ export class NavbarComponent implements OnInit {
     this.translate.onLangChange.subscribe((event) =>{
       this.setCMSRootId(event.lang);
       this.update();
-    });
+    });  
+
   }
 
   /**
-   * Fetches new static content from API starting with root id, which returns children content array 
-   * and then loops through children and fetches their content
+   * Fetches static content from API with rootId to populate navbar menu
    */
   update(){
-    this.informationService.getInformation(this.parentId).subscribe((data) => {
+    this.informationService.getInformation(this.rootId).subscribe((data) => {
       this.menu= [];
       for(let c of data.children) {
-        this.informationService.getInformation(c.id).subscribe((data)=>{
-          this.menu.push(data);
-        })
+          this.menu.push(c);
       }
-    })
+    });
   }
 
   /**
@@ -75,16 +72,15 @@ export class NavbarComponent implements OnInit {
 
   setCMSRootId(lang: string) {
     if (lang== "fi"){
-      this.parentId= "i-2";
+      this.rootId= "i-2";
     }
     if (lang== "en"){
-      this.parentId= "i-16";
+      this.rootId= "i-16";
     }
     if (lang== "sv"){
-      this.parentId= "i-14";
+      this.rootId= "i-14";
     }
   }
-
 
   logout() {
     this.userService.logout();

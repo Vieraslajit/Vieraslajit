@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { InformationService } from '../shared/service/information.service';
 import { Information } from '../shared/model/Information';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -21,8 +21,9 @@ import { TranslateService } from '@ngx-translate/core';
 export class StaticComponent implements OnInit {
 
   public scontent: Object;
-  id: String;
+  @Input() id: string;
   sub: Subscription;
+  private subTrans: Subscription;
   child_pages: Array<any>;
 
   constructor(public informationService: InformationService, private route: ActivatedRoute, 
@@ -30,20 +31,28 @@ export class StaticComponent implements OnInit {
 
   /**
    * Captures 'id' from url route and passes it to getInformation(id)
-   */
+   */ 
 
   ngOnInit() {
     this.loadContent();
+    this.subTrans = this.translate.onLangChange.subscribe(this.loadHomePage.bind(this));
     this.sub = this.router.events.filter(e => e instanceof NavigationEnd).subscribe((data)=>{
       this.loadContent();
     });
+    
   }
 
   loadContent() {
-    this.route.params.subscribe(params => {
+    if(!this.id){
+      this.route.params.subscribe(params => {
       this.id = params['id'];
-    });
+      });
+    }
     this.getInformation(this.id);
+  }
+  
+  loadHomePage(){
+      this.router.navigate(['./home']);
   }
 
   /**
@@ -67,5 +76,6 @@ export class StaticComponent implements OnInit {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.subTrans.unsubscribe();
   }
 }

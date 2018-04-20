@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ObservationsRoutingModule } from './observations-routing.module';
 import { ObservationlistComponent } from './observationlist/observationlist.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ApiService } from '../shared/api/api.service';
-import {ObservationService} from '../shared/service/observation.service'
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ObservationService } from '../shared/service/observation.service'
+import { TabsModule, AlertModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
@@ -14,9 +14,10 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     ObservationsRoutingModule,
     SharedModule,
     NgxDatatableModule,
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    AlertModule.forRoot()
   ],
   declarations: [ObservationlistComponent],
-  providers:[ApiService,ObservationService]
+  providers: [ApiService, ObservationService, DatePipe]
 })
 export class ObservationsModule { }

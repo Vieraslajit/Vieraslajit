@@ -16,6 +16,7 @@ import {SharedModule} from '../shared/shared.module';
     TabsModule,
     SharedModule
   ],
-  declarations: [StaticComponent]
+  declarations: [StaticComponent],
+  exports: [StaticComponent]
 })
 export class StaticModule { }
