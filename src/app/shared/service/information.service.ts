@@ -6,10 +6,16 @@ import { ApiService, LajiApi } from '../api/api.service';
 @Injectable()
 export class InformationService {
 
+  private informationCache: { [id: string]: any } = {};
+
   constructor(private apiService: ApiService) { }
 
   //get static page information
   getInformation(id: string): Observable<Information> {
-    return this.apiService.informationFindById(LajiApi.Endpoints.information, id);
+    if (this.informationCache[id]) {
+      return Observable.of(this.informationCache[id]);
+    }
+    return this.apiService.informationFindById(LajiApi.Endpoints.information, id)
+      .do(result => this.informationCache[id] = result);
   }
 }
