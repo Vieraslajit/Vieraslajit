@@ -73,16 +73,11 @@
                 <span translate>taxon.pictures</span>
               </div>
               <div class="card-block">
-                <carousel [interval]="false">
+                <carousel id="image-carousel" [interval]="false">
                   <slide *ngFor="let image of media">
-                    <img src="{{image.fullURL}}" style="display: block; width: 100%; height: 100%;" (click)="openImage(imageModal, image)">
+                    <img class="img-fluid" src="{{image.fullURL}}" (click)="openImage(imageModal, image)">
                   </slide>
                 </carousel>
-                <!-- <ng-container *ngFor="let image of media">
-                  <a href="{{image.fullURL}}">
-                    <img src="{{image.thumbnailURL}}" style="padding: 2px" />
-                  </a>
-                </ng-container> -->
               </div>
             </div>
           </ng-container>
@@ -170,6 +165,5 @@
 </laji-spinner>
 
 <ng-template #imageModal>
-  <span class="close">&times;</span>
-  <img src="https://image.laji.fi/MM.100086/MX.49649_Rotta_1.jpg" style="width:100%;">
+  <img class="img-fluid" [src]="selectedImage.fullURL || selectedImage.largeURL" />
 </ng-template>
