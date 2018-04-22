@@ -41,15 +41,17 @@ export class ObservationComponent implements OnInit{
 
     this.observations
       .forEach((observationObject) => {
-        coordinates = [
-          observationObject.gathering.conversions.wgs84CenterPoint.lon,
-          observationObject.gathering.conversions.wgs84CenterPoint.lat
-        ]
-        municipality = observationObject.gathering.interpretations.municipalityDisplayname;
-        date = observationObject.gathering.displayDateTime;
+        if(observationObject.gathering.conversions) {
+          coordinates = [
+            observationObject.gathering.conversions.wgs84CenterPoint.lon,
+            observationObject.gathering.conversions.wgs84CenterPoint.lat
+          ]
+          municipality = observationObject.gathering.interpretations.municipalityDisplayname;
+          date = observationObject.gathering.displayDateTime;
 
-        const dataObject= this.returnFeatureCollectionAndPopup(this.returnFeatures(coordinates),municipality,date);
-        this.mapData.push(dataObject);
+          const dataObject= this.returnFeatureCollectionAndPopup(this.returnFeatures(coordinates),municipality,date);
+          this.mapData.push(dataObject);
+        }
       });
   }
 

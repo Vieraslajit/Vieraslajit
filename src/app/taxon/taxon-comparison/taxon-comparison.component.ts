@@ -14,7 +14,8 @@ export class TaxonComparisonComponent implements OnInit, OnDestroy {
   @Input() taxon: Taxonomy;
   @Input() media: TaxonomyImage;
   private subTrans: any;
-
+  
+  loading: boolean = true;
   groups = [];
   taxonomy: Taxonomy[];
 
@@ -44,6 +45,7 @@ export class TaxonComparisonComponent implements OnInit, OnDestroy {
     this.groups.forEach(elem => {
       this.taxonService.getComparisonTaxonomy('MX.37600', elem, this.translate.currentLang).subscribe(data => {
         this.taxonomy = data.results;
+        this.loading = false;
       });
     });
   }

@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MetadataService } from '../../shared/service/metadata.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { OmnisearchComponent } from '../../shared/omnisearch';
+import { SpinnerModule } from '../../shared-modules/spinner/spinner.module';
 
 describe('TaxonComparisonComponent', () => {
   let component: TaxonComparisonComponent;
@@ -19,7 +20,7 @@ describe('TaxonComparisonComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TaxonComparisonComponent, LabelPipe, OmnisearchComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule, HttpClientModule,
-        FormsModule, ReactiveFormsModule],
+        FormsModule, ReactiveFormsModule, SpinnerModule],
       providers: [TaxonService, ApiService, MetadataService]
     })
       .compileComponents();

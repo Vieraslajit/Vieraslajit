@@ -1,3 +1,6 @@
+<laji-spinner [spinning]="loading"></laji-spinner>
+
+<ng-container *ngIf=!loading>
 <div class="container-fluid">
   <h1 translate>comparison.title</h1>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eleifend imperdiet leo nec dictum. Proin sem nibh, pharetra
@@ -54,3 +57,4 @@
     </div>
   </div>
 </div>
+</ng-container>

@@ -1,14 +1,16 @@
-<laji-spinner [spinning]="loading" [overlay]="true">
-  <ng-container *ngIf=!loading>
-    <div [collapse]="comparison" class="container">
-      <div class="row head">
-        <h1 id="taxonh1">
-          {{taxon?.vernacularName}}
-          <span *ngIf="taxon?.vernacularName">&ndash;</span>
-          <span [class.cursive]="taxon?.cursiveName">{{taxon?.scientificName}}</span>
-          <img src="assets/images/logos/vieraslaji-logo-70x70.png" width="40" height="40" alt="">
-        </h1>
+<laji-spinner [spinning]="loading" [overlay]="true"></laji-spinner>
 
+<ng-container *ngIf=!loading>
+<div [collapse]="comparison" class="container">
+  <div class="row head">
+    <h1 id="taxonh1">
+      {{taxon?.vernacularName}}
+      <span *ngIf="taxon?.vernacularName">&ndash;</span>
+      <span [class.cursive]="taxon?.cursiveName">{{taxon?.scientificName}}</span>
+      <img src="assets/images/logos/vieraslaji-logo-70x70.png" width="40" height="40" alt="">
+    </h1>
+   
+  </div>
       </div>
 
       <div class="row">
@@ -153,16 +155,12 @@
 
         </ng-template>
       </div>
-
-
-    </div>
-    <div *ngIf="comparison && taxon && media">
-      <button class="btn btn-primary" (click)="comparisonView()" translate>comparison.card</button>
-      <vrs-taxon-comparison [taxon]="taxon" [media]="media[0]"></vrs-taxon-comparison>
-    </div>
-  </ng-container>
-  <br>
-</laji-spinner>
+</div>
+<div *ngIf="comparison && taxon && media">
+  <button class="btn btn-primary" (click)="comparisonView()" translate>comparison.card</button>
+  <vrs-taxon-comparison [taxon]="taxon" [media]="media[0]"></vrs-taxon-comparison>
+</div>
+</ng-container>
 
 <ng-template #imageModal>
   <img class="img-fluid" [src]="selectedImage.fullURL || selectedImage.largeURL" />
