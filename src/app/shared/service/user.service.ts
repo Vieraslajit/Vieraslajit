@@ -11,7 +11,7 @@ export enum userProperty {
 }
 
 export enum Role {
-  CMS_ADMIN = 'admin'
+  CMS_ADMIN = 'MA.invasivePortalAdmin'
 }
 
 @Injectable()
@@ -83,8 +83,10 @@ export class UserService {
       this.setUserProperty(userProperty.PTOKEN, data);
       this.apiService.personByToken(UserService.getToken()).subscribe((data) => {
         // Admin role for testing purposes
-        data['role'] = [Role.CMS_ADMIN];
-
+        if(!environment.production) {
+          data['role'] = [Role.CMS_ADMIN];
+        }
+        
         this.setUserProperty(userProperty.PERSON, data);
 
         this.setUserProperty(userProperty.LOGIN, "true");

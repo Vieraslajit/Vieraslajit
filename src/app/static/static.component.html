@@ -10,10 +10,9 @@
 </ng-container>
 
 <ng-container *ngIf="scontent && !child_pages">
-        <vrs-editcms id="{{id}}"></vrs-editcms>
+        <vrs-editcms id="{{id.substring(2, id.length)}}"></vrs-editcms>
         <h1 [innerHTML]="scontent['title']"></h1>
         <div [innerHTML]="scontent['content']">
-
         </div>
 </ng-container>
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService, Role } from './../service/user.service';
 
 @Component({
   selector: 'vrs-footer',
@@ -10,6 +11,10 @@ export class FooterComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  isAdmin(): boolean {
+    return UserService.hasRole(Role.CMS_ADMIN);
   }
 
 }

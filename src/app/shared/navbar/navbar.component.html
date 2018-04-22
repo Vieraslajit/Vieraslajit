@@ -50,9 +50,6 @@
                     <ng-template #welcome_content>
                         welcome {{userPropertiesWrapper().person.fullName}}
                         <button (click)="logout()">Logout</button>
-                        <ng-container *ngIf="isCMSAdmin()">
-                            <a href="https://vieras-cms.laji.fi">CMS linkki</a>
-                        </ng-container>
                     </ng-template>
                   </li>
                   <li class="nav-item" id="language-selector">

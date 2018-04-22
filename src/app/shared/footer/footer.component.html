@@ -67,7 +67,12 @@
           <li class="list-inline-item"><a href="">Facebook</a></li>
         </ul>
         <hr>
-        <a href="">Tietosuojaseloste</a>
+        <ul class="list-inline">
+          <li class="list-inline-item"><a href="">Tietosuojaseloste</a></li>
+          <li *ngIf="isAdmin()" class="list-inline-item">
+            <a href="https://vieras-cms.laji.fi">Vieras-CMS</a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

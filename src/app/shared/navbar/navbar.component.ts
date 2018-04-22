@@ -96,10 +96,6 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  isCMSAdmin() {
-    return UserService.hasRole(Role.CMS_ADMIN);
-  }
-
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
