@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LabelPipe } from '../../shared/pipe/label.pipe';
 import { MetadataService } from '../../shared/service/metadata.service';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { CollapseModule, AccordionModule } from 'ngx-bootstrap';
+import { CollapseModule, AccordionModule, CarouselModule, BsModalService, ComponentLoaderFactory, ModalModule } from 'ngx-bootstrap';
 import { TaxonComparisonComponent } from '../taxon-comparison/taxon-comparison.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { OmnisearchComponent } from '../../shared/omnisearch';
@@ -26,10 +26,15 @@ describe('TaxonCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TaxonCardComponent, LabelPipe, TaxonComparisonComponent, OmnisearchComponent,ObservationComponent],
-      imports: [HttpClientModule, TranslateModule.forRoot(), CollapseModule.forRoot(),
-        RouterTestingModule, FormsModule, ReactiveFormsModule, AccordionModule, SpinnerModule],
-      providers: [TaxonService, ApiService, TranslateService, MetadataService,ObservationService]
+      declarations: [TaxonCardComponent, LabelPipe, TaxonComparisonComponent, OmnisearchComponent, ObservationComponent],
+      imports: [
+        HttpClientModule, TranslateModule.forRoot(), CollapseModule.forRoot(),
+        RouterTestingModule, FormsModule, ReactiveFormsModule, AccordionModule, SpinnerModule,
+        CarouselModule, ModalModule.forRoot()
+      ],
+      providers: [
+        TaxonService, ApiService, TranslateService, MetadataService, ObservationService, BsModalService
+      ]
     })
       .compileComponents();
   }));
