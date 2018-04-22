@@ -26,15 +26,9 @@
                     <li class="dropdown" id="dropdown-about" dropdown>
                         <a dropdownToggle class="dropdown-toggle" id="dropdown-toggle" translate>navigation.about <span class="caret"></span></a>
                             <ul *dropdownMenu class="dropdown-menu" id="dropdown-menu" role="menu">
-                                <li *ngFor="let e of menu" role="menuitem"><a class="dropdown-item" id="dropdown-menu-item" routerLink="static/{{e.id}}">{{e.title}}</a></li>
+                                <li *ngFor="let child of menu" role="menuitem"><a class="dropdown-item" id="dropdown-menu-item"
+                                     routerLink="static/{{child.id}}">{{child.title}}</a></li>
                             </ul>
-                            <!--<ul *dropdownMenu class="dropdown-menu" id="dropdown-menu" role="menu">
-                                <li role="menuitem"><a class="dropdown-item" id="dropdown-menu-item" routerLink="#" translate>dropdown.info</a></li>
-                                <li role="menuitem"><a class="dropdown-item" id="dropdown-menu-item" routerLink="/legal" translate>dropdown.legal</a></li>
-                                <li role="menuitem"><a class="dropdown-item" id="dropdown-menu-item" routerLink="#" translate>dropdown.projects</a></li>
-                                <li role="menuitem"><a class="dropdown-item" id="dropdown-menu-item" routerLink="#" translate>dropdown.publication</a></li>
-                                <li role="menuitem"><a class="dropdown-item" id="dropdown-menu-item" routerLink="#" translate>dropdown.guides</a></li>
-                            </ul>-->
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" routerLink="/observations" (click)="isCollapsed = !isCollapsed"

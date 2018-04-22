@@ -1,6 +1,6 @@
 <ng-container *ngIf="child_pages">
         <tabset>
-                <tab *ngFor="let child of child_pages" heading="{{child.menuTitle}}">
+                <tab *ngFor="let child of child_pages" heading="{{child.title}}">
                         <ng-container *ngIf="child.data">
                                 <vrs-editcms id="{{child.id}}"></vrs-editcms>
                                 <div [innerHTML]="child.data.content"></div>
@@ -11,7 +11,7 @@
 
 <ng-container *ngIf="scontent && !child_pages">
         <vrs-editcms id="{{id}}"></vrs-editcms>
-        <h1 [innerHTML]="scontent['menuTitle']"></h1>
+        <h1 [innerHTML]="scontent['title']"></h1>
         <div [innerHTML]="scontent['content']">
 
         </div>

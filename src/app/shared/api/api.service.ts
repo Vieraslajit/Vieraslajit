@@ -116,16 +116,13 @@ export class ApiService {
     );
   }
 
+  /**
+   * @param endpoint Target API endpoint
+   * @param query
+   * @param id Optional group id.
+   */
   informalTaxonGroups(endpoint: LajiApi.Endpoints.informalRoots, query: LajiApi.Query): Observable<PagedResult<Informal>>;
   informalTaxonGroups(endpoint: LajiApi.Endpoints.informalChildren, query: LajiApi.Query, id: string): Observable<PagedResult<Informal>>;
-  /**
-   * @param endpoint LajiApi.Endpoints.informalRoots: Get root informal taxon groups
-   * 
-   * LajiApi.Endpoints.informalChildren: Get children for the given group
-   * 
-   * @param query
-   * @param id (optional)
-   */
   informalTaxonGroups(endpoint: LajiApi.Endpoints, query: object = {}, id?: string): Observable<any> {
     const url = `${environment.lajiApi.url}/${endpoint}`.replace('%id%', id);
     return this.httpClient.get(
@@ -134,17 +131,13 @@ export class ApiService {
     );
   }
 
-  /** Returns range that is of type select (alt)
-   * @param endpoint
-   * @param range
+  /** 
+   * Returns range that is of type select (alt)
+   * @param endpoint Target API endpoint
+   * @param range Type of range
    * @param query
   */
   fetchMetadata(endpoint: LajiApi.Endpoints.metadataRange, range: string, query: LajiApi.Query): Observable<Array<any>>;
-  /**
-  * @param endpoint
-  * @param range (optional)
-  * @param query
-  */
   fetchMetadata(endpoint: LajiApi.Endpoints, range?: string, query: object = {}): Observable<any> {
     const url = `${environment.lajiApi.url}/${endpoint}`.replace('%range%', range);
     return this.httpClient.get(
@@ -153,21 +146,17 @@ export class ApiService {
     );
   }
 
-  /** Return taxon data with the given query */
-  taxonomyFindById(endpoint: LajiApi.Endpoints.taxon, id: string, query: LajiApi.Query): Observable<Taxonomy>;
-  /** Return media object of the given taxon */
-  taxonomyFindById(endpoint: LajiApi.Endpoints.media, id: string, query: LajiApi.Query): Observable<Array<TaxonomyImage>>;
-  /** Return  description texts from Laji.fi taxonomy database */
-  taxonomyFindById(endpoint: LajiApi.Endpoints.description, id: string, query: LajiApi.Query): Observable<Array<any>>;
-  /** Return species belonging to the given taxon */
-  taxonomyFindById(endpoint: LajiApi.Endpoints.taxonSpecies, id: string, query: LajiApi.Query): Observable<PagedResult<Taxonomy>>;
-  /** Return taxons parents all the way up to biota */
-  taxonomyFindById(endpoint: LajiApi.Endpoints.taxonParents, id: string, query: LajiApi.Query): Observable<Array<Taxonomy>>;
   /**
-  * @param endpoint
-  * @param id
+  * Taxonomy API
+  * @param endpoint Target API endpoint
+  * @param id Id of the given taxon
   * @param query
   */
+  taxonomyFindById(endpoint: LajiApi.Endpoints.taxon, id: string, query: LajiApi.Query): Observable<Taxonomy>;
+  taxonomyFindById(endpoint: LajiApi.Endpoints.media, id: string, query: LajiApi.Query): Observable<Array<TaxonomyImage>>;
+  taxonomyFindById(endpoint: LajiApi.Endpoints.description, id: string, query: LajiApi.Query): Observable<Array<any>>;
+  taxonomyFindById(endpoint: LajiApi.Endpoints.taxonSpecies, id: string, query: LajiApi.Query): Observable<PagedResult<Taxonomy>>;
+  taxonomyFindById(endpoint: LajiApi.Endpoints.taxonParents, id: string, query: LajiApi.Query): Observable<Array<Taxonomy>>;
   taxonomyFindById(endpoint: LajiApi.Endpoints, id: string, query: object = {}): Observable<any> {
     const url = `${environment.lajiApi.url}/${endpoint}`.replace('%id%', id);
     return this.httpClient.get(
@@ -176,12 +165,12 @@ export class ApiService {
     );
   }
 
-  /** Return news */
-  newsFindAll(endpoint: LajiApi.Endpoints.newsArray, query: LajiApi.Query): Observable<PagedResult<NewsElement>>;
-  /**
-  * @param endpoint
+  /** 
+  * News API
+  * @param endpoint Target API endpoint
   * @param query
   */
+  newsFindAll(endpoint: LajiApi.Endpoints.newsArray, query: LajiApi.Query): Observable<PagedResult<NewsElement>>;
   newsFindAll(endpoint: LajiApi.Endpoints, query: object = {}): Observable<any> {
     const url = `${environment.lajiApi.url}/${endpoint}`;
     return this.httpClient.get(
@@ -190,12 +179,12 @@ export class ApiService {
     );
   }
 
-  /** Return information with the given id */
-  informationFindById(endpoint: LajiApi.Endpoints.information, id: string): Observable<Information>;
-  /**
-  * @param endpoint
-  * @param id
+  /** 
+  * Information API
+  * @param endpoint Target API endpoint
+  * @param id Id of the information
   */
+  informationFindById(endpoint: LajiApi.Endpoints.information, id: string): Observable<Information>;
   informationFindById(endpoint: LajiApi.Endpoints, id: string): Observable<any> {
     const url = `${environment.lajiApi.url}/${endpoint}`.replace('%id%', id);
     return this.httpClient.get(
@@ -204,34 +193,64 @@ export class ApiService {
     );
   }
 
-  /** Get form by id
-  * @param endpoint
-  * @param id
-  * @param lang
+  /** 
+  * Form API
+  * @param endpoint Target API endpoint
+  * @param id Id of the form
+  * @param lang Language of the form
   */
-  formById(endpoint: LajiApi.Endpoints.form, id: string, query: LajiApi.Query): Observable<any>;
-  formById(endpoint: LajiApi.Endpoints, id: string, query: object = {}): Observable<any> {
+  formById(endpoint: LajiApi.Endpoints.form, id: string, lang: string): Observable<any>;
+  formById(endpoint: LajiApi.Endpoints, id: string, lang: string): Observable<any> {
     const url = `${environment.lajiApi.url}/${endpoint}`.replace('%id%', id);
     return this.httpClient.get(
       url,
-      { params: { ...query, 'access_token': environment.lajiApi.accessToken } }
+      { params: { lang: lang, 'access_token': environment.lajiApi.accessToken } }
     );
   }
-  documentsByPersonToken(endpoint: LajiApi.Endpoints.documents, query:LajiApi.Query ):Observable<any>;
-  documentsByPersonToken(endpoint: LajiApi.Endpoints.documents, query: object={}):Observable<any>{
+  documentsByPersonToken(endpoint: LajiApi.Endpoints.documents, query: LajiApi.Query): Observable<any>;
+  documentsByPersonToken(endpoint: LajiApi.Endpoints.documents, query: object = {}): Observable<any> {
     const url = `${environment.lajiApi.url}${endpoint}`;
     return this.httpClient.get(
       url,
-      { params: { ...query, 'access_token': environment.lajiApi.accessToken } });}
+      { params: { ...query, 'access_token': environment.lajiApi.accessToken } });
+  }
 
-
-  documentApi(endpoint: LajiApi.Endpoints.createDocument, userToken: string, data: Document): Observable<Document>;
-  documentApi(endpoint: LajiApi.Endpoints, userToken: string, data: Document): Observable<any> {
+  /**
+   * Document API for POST method
+   * @param endpoint Target API endpoint
+   * @param personToken Persontoken received from laji-auth on login 
+   * @param data Data to send
+   */
+  documentPost(endpoint: LajiApi.Endpoints.createDocument, personToken: string, data: Document): Observable<Document>;
+  documentPost(endpoint: LajiApi.Endpoints, personToken: string, data?: Document, documentId?: string): Observable<any> {
     const url = `${environment.lajiApi.url}/${endpoint}`;
     return this.httpClient.post(
       url,
       JSON.stringify(data),
-      { params: { 'personToken': userToken, 'access_token': environment.lajiApi.accessToken } }
+      { params: { 'personToken': personToken, 'access_token': environment.lajiApi.accessToken } }
+    );
+  }
+  /**
+   * Document API for GET methods
+   * @param endpoint Target API endpoint
+   * @param personToken Persontoken received from laji-auth on login
+   * @param documentId ID of the document
+   */
+  documentGet(endpoint: LajiApi.Endpoints.getDocument, personToken: string, documentId: string): Observable<Document>;
+  documentGet(endpoint: LajiApi.Endpoints, personToken: string, documentId: string): Observable<any> {
+    const url = `${environment.lajiApi.url}/${endpoint}`.replace('%id%', documentId);
+    return this.httpClient.get(
+      url,
+      { params: { 'personToken': personToken, 'access_token': environment.lajiApi.accessToken } }
+    );
+  }
+
+  documentUpdate(endpoint: LajiApi.Endpoints.updateDocument, id: string, data: Document, personToken: string): Observable<any> {
+    const url = `${environment.lajiApi.url}/${endpoint}`.replace('%id%', id);
+    return this.httpClient.put(
+      url,
+      JSON.stringify(data),
+      { params: { 'personToken': personToken, 'access_token': environment.lajiApi.accessToken } }
     );
   }
 }
@@ -255,7 +274,9 @@ export namespace LajiApi {
     warehousequerylist = 'warehouse/query/list',
     information = 'information/%id%',
     form = 'forms/%id%',
-    createDocument = 'documents'
+    createDocument = 'documents',
+    getDocument = 'documents/%id%',
+    updateDocument = 'documents/%id%'
   }
   /** Possible query parameters. */
   export interface Query {
@@ -271,9 +292,9 @@ export namespace LajiApi {
     langFallback?: boolean;
     hasMediaFilter?: boolean;
     includeMedia?: boolean;
-    adminStatusFilters?:String;
-    personToken?:String;
-  
+    adminStatusFilters?: String;
+    personToken?: String;
+
 
   }
   export interface AutocompleteQuery {
@@ -292,7 +313,7 @@ export namespace LajiApi {
   export interface WarehouseQueryListQuery {
     taxonId: Array<string>;
     pageSize?: string;
-    page:string;
+    page: string;
   }
 
 }
