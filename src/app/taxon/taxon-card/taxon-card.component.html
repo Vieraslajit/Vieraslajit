@@ -1,165 +1,162 @@
-<laji-spinner [spinning]="loading" [overlay]="true"></laji-spinner>
-
 <ng-container *ngIf=!loading>
-<div [collapse]="comparison" class="container">
-  <div class="row head">
-    <h1 id="taxonh1">
-      {{taxon?.vernacularName}}
-      <span *ngIf="taxon?.vernacularName">&ndash;</span>
-      <span [class.cursive]="taxon?.cursiveName">{{taxon?.scientificName}}</span>
-      <img src="assets/images/logos/vieraslaji-logo-70x70.png" width="40" height="40" alt="">
-    </h1>
-   
+  <div [collapse]="comparison" class="container">
+    <div class="row head">
+      <h1 id="taxonh1">
+        {{taxon?.vernacularName}}
+        <span *ngIf="taxon?.vernacularName">&ndash;</span>
+        <span [class.cursive]="taxon?.cursiveName">{{taxon?.scientificName}}</span>
+        <img src="assets/images/logos/vieraslaji-logo-70x70.png" width="40" height="40" alt="">
+      </h1>
+
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-6">
+        <div *ngIf="desc?.groups; else infoAndLajifiTemplate">
+          <div class="card" id="taxoncard" *ngFor="let group of desc?.groups; let first = first">
+            <accordion>
+              <accordion-group [panelClass]="cardAccordion" [isOpen]="first">
+                <div accordion-heading id="accordion">
+                  {{group.title}}
+                  <ng-container *ngIf="first === false">
+                    <span class="oi oi-chevron-bottom float-right"></span>
+                  </ng-container>
+                </div>
+                <div class="card-block" *ngFor="let variable of group.variables">
+                  <h4 class="card-title">
+                    {{variable.title}}
+                  </h4>
+                  <span class="card-text" [innerHTML]="variable.content"></span>
+                </div>
+              </accordion-group>
+            </accordion>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <div class="card" id="taxoncard-right">
+          <div class="card-header">
+            <span translate>taxon.identification</span>
+          </div>
+          <div class="row">
+
+            <div class="col-sm-12 col-md-6">
+              <div class="card-body">
+                <div class="card-text">
+                  <button id="comparison" class="btn btn-primary" (click)="comparisonView()" translate>comparison.title</button>
+                  <br>
+                  <br>
+                  <span translate>comparison.text</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="card-body">
+                <div class="card-text">
+                  <button id="report" class="btn btn-dark" translate>taxon.report</button>
+                  <br>
+                  <br>
+                  <span translate>taxon.reportText</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <ng-container *ngIf="media != null && media.length > 0">
+          <div class="card" id="taxoncard-right">
+            <div class="card-header">
+              <span translate>taxon.pictures</span>
+            </div>
+            <div class="card-block">
+              <carousel id="image-carousel" [interval]="false">
+                <slide *ngFor="let image of media">
+                  <img class="img-fluid" src="{{image.fullURL}}" (click)="openImage(imageModal, image)">
+                </slide>
+              </carousel>
+            </div>
+          </div>
+        </ng-container>
+        <div class="card" id="taxoncard-right">
+          <div class="card-header">
+            <span translate>mapOfObservations.header</span>
+          </div>
+          <div class="card-block">
+            <vrs-observation [id]="id"></vrs-observation>
+          </div>
+        </div>
+
+        <div *ngIf="desc?.groups; then infoAndLajifiTemplate"> </div>
+      </div>
+
+      <ng-template #infoAndLajifiTemplate>
+        <div class="card" id="taxoncard-right">
+          <div class="card-header">
+            <span translate>taxon.card</span>
+          </div>
+          <div class="card-block">
+            <div class="card-body">
+              <div>
+                <strong translate>taxon.name</strong>
+                {{taxon?.vernacularName}}
+              </div>
+              <div>
+                <strong translate>taxon.scientific</strong>
+                <em>{{taxon?.scientificName}}</em>
+              </div>
+              <div>
+                <strong translate>taxon.establishedFin</strong>
+                <span translate>{{taxon?.stableInFinland == true ? 'taxonomy.yes' : 'taxonomy.no' }}</span>
+              </div>
+              <div>
+                <strong translate>taxon.occurrence</strong>
+                <span>{{(taxon?.occurrenceInFinland | label: 'MX.occurrenceInFinlandEnum' | async) || 'taxon.unknown' | translate
+                  }}
+                </span>
+              </div>
+              <div>
+                <strong translate>taxonomy.quarantinePlantPest</strong>
+                <span translate>{{quarantinePlantPest == true ? 'taxonomy.yes' : 'taxonomy.no' }}</span>
+              </div>
+              <hr/>
+              <ng-container *ngIf="taxon?.administrativeStatuses">
+                <div>
+                  <!-- <strong translate>taxon.administrative</strong> -->
+                  <ul>
+                    <li *ngFor="let status of taxon.administrativeStatuses">
+                      {{status | label: 'MX.adminStatusEnum' | async}}
+                    </li>
+                  </ul>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="card" id="taxoncard-right">
+          <div class="card-header">
+            <a href="http://tun.fi/{{id}}" target="_blank">
+              <img src="https://laji.fi/static/images/icons/favicon.ico" style="margin-Top:-3px" alt="laji.fi">
+            </a>
+            <span translate>Laji.fi</span>
+          </div>
+          <div class="card-block">
+            <div class="card-body">
+              <span class="card-text" translate>taxon.lajiFi</span>
+              <a href="http://tun.fi/{{id}}" target="_blank">http://tun.fi/{{id}}</a>
+            </div>
+          </div>
+        </div>
+
+      </ng-template>
+    </div>
   </div>
-      </div>
-
-      <div class="row">
-        <div class="col-sm-12 col-md-6">
-          <div *ngIf="desc?.groups; else infoAndLajifiTemplate">
-            <div class="card" id="taxoncard" *ngFor="let group of desc?.groups; let first = first">
-              <accordion>
-                <accordion-group [panelClass]="cardAccordion" [isOpen]="first">
-                  <div accordion-heading id="accordion">
-                    {{group.title}}
-                    <ng-container *ngIf="first === false">
-                      <span class="oi oi-chevron-bottom float-right"></span>
-                    </ng-container>
-                  </div>
-                  <div class="card-block" *ngFor="let variable of group.variables">
-                    <h4 class="card-title">
-                      {{variable.title}}
-                    </h4>
-                    <span class="card-text" [innerHTML]="variable.content"></span>
-                  </div>
-                </accordion-group>
-              </accordion>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-12 col-md-6">
-          <div class="card" id="taxoncard-right">
-            <div class="card-header">
-              <span translate>taxon.identification</span>
-            </div>
-            <div class="row">
-
-              <div class="col-sm-12 col-md-6">
-                <div class="card-body">
-                  <div class="card-text">
-                    <button id="comparison" class="btn btn-primary" (click)="comparisonView()" translate>comparison.title</button>
-                    <br>
-                    <br>
-                    <span translate>comparison.text</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-12 col-md-6">
-                <div class="card-body">
-                  <div class="card-text">
-                    <button id="report" class="btn btn-dark" translate>taxon.report</button>
-                    <br>
-                    <br>
-                    <span translate>taxon.reportText</span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-          <ng-container *ngIf="media != null && media.length > 0">
-            <div class="card" id="taxoncard-right">
-              <div class="card-header">
-                <span translate>taxon.pictures</span>
-              </div>
-              <div class="card-block">
-                <carousel id="image-carousel" [interval]="false">
-                  <slide *ngFor="let image of media">
-                    <img class="img-fluid" src="{{image.fullURL}}" (click)="openImage(imageModal, image)">
-                  </slide>
-                </carousel>
-              </div>
-            </div>
-          </ng-container>
-          <div class="card" id="taxoncard-right">
-            <div class="card-header">
-              <span translate>mapOfObservations.header</span>
-            </div>
-            <div class="card-block">
-              <vrs-observation [id]="id"></vrs-observation>
-            </div>
-          </div>
-
-          <div *ngIf="desc?.groups; then infoAndLajifiTemplate"> </div>
-        </div>
-
-        <ng-template #infoAndLajifiTemplate>
-          <div class="card" id="taxoncard-right">
-            <div class="card-header">
-              <span translate>taxon.card</span>
-            </div>
-            <div class="card-block">
-              <div class="card-body">
-                <div>
-                  <strong translate>taxon.name</strong>
-                  {{taxon?.vernacularName}}
-                </div>
-                <div>
-                  <strong translate>taxon.scientific</strong>
-                  <em>{{taxon?.scientificName}}</em>
-                </div>
-                <div>
-                  <strong translate>taxon.establishedFin</strong>
-                  <span translate>{{taxon?.stableInFinland == true ? 'taxonomy.yes' : 'taxonomy.no' }}</span>
-                </div>
-                <div>
-                  <strong translate>taxon.occurrence</strong>
-                  <span>{{(taxon?.occurrenceInFinland | label: 'MX.occurrenceInFinlandEnum' | async) || 'taxon.unknown' | translate
-                    }}
-                  </span>
-                </div>
-                <div>
-                  <strong translate>taxonomy.quarantinePlantPest</strong>
-                  <span translate>{{quarantinePlantPest == true ? 'taxonomy.yes' : 'taxonomy.no' }}</span>
-                </div>
-                <hr/>
-                <ng-container *ngIf="taxon?.administrativeStatuses">
-                  <div>
-                    <!-- <strong translate>taxon.administrative</strong> -->
-                    <ul>
-                      <li *ngFor="let status of taxon.administrativeStatuses">
-                        {{status | label: 'MX.adminStatusEnum' | async}}
-                      </li>
-                    </ul>
-                  </div>
-                </ng-container>
-              </div>
-            </div>
-          </div>
-          <div class="card" id="taxoncard-right">
-            <div class="card-header">
-              <a href="http://tun.fi/{{id}}" target="_blank">
-                <img src="https://laji.fi/static/images/icons/favicon.ico" style="margin-Top:-3px" alt="laji.fi">
-              </a>
-              <span translate>Laji.fi</span>
-            </div>
-            <div class="card-block">
-              <div class="card-body">
-                <span class="card-text" translate>taxon.lajiFi</span>
-                <a href="http://tun.fi/{{id}}" target="_blank">http://tun.fi/{{id}}</a>
-              </div>
-            </div>
-          </div>
-
-        </ng-template>
-      </div>
-</div>
-<div *ngIf="comparison && taxon && media">
-  <button class="btn btn-primary" (click)="comparisonView()" translate>comparison.card</button>
-  <vrs-taxon-comparison [taxon]="taxon" [media]="media[0]"></vrs-taxon-comparison>
-</div>
+  <div *ngIf="comparison && taxon && media">
+    <button class="btn btn-primary" (click)="comparisonView()" translate>comparison.card</button>
+    <vrs-taxon-comparison [taxon]="taxon" [media]="media[0]"></vrs-taxon-comparison>
+  </div>
 </ng-container>
 
 <ng-template #imageModal>
