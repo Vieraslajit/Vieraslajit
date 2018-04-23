@@ -12,13 +12,13 @@ addons:
 cache:
   directories:
      - ./node_modules
-before_script:
-  - npm install -g @angular/cli
+install:
+  - npm install
 script: 
-  # Use Chromium instead of Chrome.
+    # Use Chromium instead of Chrome.
   - export CHROME_BIN=chromium-browser
   - xvfb-run -a npm run test -- --single-run --no-progress --browser=ChromeNoSandbox
-  - xvfb-run -a npm run e2e -- --no-progress --webdriver-update false --config=protractor-ci.conf.js
+  - xvfb-run -a npm run e2e -- --no-progress --config=protractor-ci.conf.js
 before_deploy:
   - ng build --prod --aot --no-delete-output-path -bh "https://vieraslajit.github.io/Vieraslajit/"
 branches:
