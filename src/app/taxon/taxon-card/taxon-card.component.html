@@ -1,3 +1,5 @@
+<laji-spinner [spinning]="loading" [overlay]="true"></laji-spinner>
+
 <ng-container *ngIf=!loading>
   <div [collapse]="comparison" class="container">
     <div class="row head">
@@ -51,26 +53,13 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-                
-                  <div class="col-sm-12 col-md-6">
-                      <div class="card-body">
-                      <div class="card-text">
-                      <button id="comparison" class="btn btn-primary" (click)="comparisonView()" translate>comparison.title</button>
-                      <br><br>
-                      <span translate>comparison.text</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-12 col-md-6">
-                      <div class="card-body">
-                      <div class="card-text">
-                          <a routerLink="/form/JX.123757" id="report" class="btn btn-dark" translate>taxon.report</a>
-                          <br><br>
-                          <span translate>taxon.reportText</span>
-                      </div>
-                    </div>
-                  </div>                  
+            <div class="col-sm-12 col-md-6">
+              <div class="card-body">
+                <div class="card-text">
+                  <a routerLink="/form/JX.123757" id="report" class="btn btn-dark" translate>taxon.report</a>
+                  <br>
+                  <br>
+                  <span translate>taxon.reportText</span>
                 </div>
               </div>
             </div>
