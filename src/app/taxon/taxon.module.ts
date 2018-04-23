@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AccordionModule, CollapseModule, PaginationModule, TabsModule } from 'ngx-bootstrap';
+import { AccordionModule, CollapseModule, PaginationModule, TabsModule, CarouselModule, BsDropdownModule } from 'ngx-bootstrap';
 
 import { TaxonListComponent } from './taxon-list/taxon-list.component';
 import { TaxonCardComponent } from './taxon-card/taxon-card.component';
@@ -26,7 +26,8 @@ import { ObservationComponent } from '../observation/observation.component';
     CollapseModule,
     PaginationModule,
     TabsModule,
- 
+    CarouselModule,
+    BsDropdownModule,
   ],
   declarations: [TaxonListComponent, TaxonCardComponent, TaxonComparisonComponent, ObservationComponent ]
 })

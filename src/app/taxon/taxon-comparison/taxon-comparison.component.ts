@@ -16,14 +16,44 @@ export class TaxonComparisonComponent implements OnInit, OnDestroy {
   private subTrans: any;
   
   loading: boolean = true;
+  hasTaxonomy: boolean;
   groups = [];
   taxonomy: Taxonomy[];
+  multimedia: TaxonomyImage[];
+  selected: Taxonomy;
+  current = 0;
+  
 
   constructor(private taxonService: TaxonService, private translate: TranslateService) { }
 
   ngOnInit() {
     this.subTrans = this.translate.onLangChange.subscribe(this.update.bind(this));
     this.update();
+  }
+
+  next() {
+    this.current = this.current + 1;
+    if (this.current > this.taxonomy.length - 1) {
+      this.current = 0;
+    }
+    this.selected = this.taxonomy[this.current];
+  }
+
+  prev() {
+    this.current = this.current - 1;
+    if (this.current < 0) {
+      this.current = this.taxonomy.length - 1;
+    }
+    this.selected = this.taxonomy[this.current];
+  }
+
+  changeSelected(event) {
+    this.selected = this.taxonomy[event];
+    this.current = event;
+  }
+
+  hasTaxonomys() {
+    return this.hasTaxonomy;
   }
 
   update() {
@@ -36,21 +66,30 @@ export class TaxonComparisonComponent implements OnInit, OnDestroy {
         }, err => err, () => {
           if (index === arr.length - 1) {
             this.getTaxon();
+            setInterval(() => {
+              this.loading = false;
+            }, 2000); 
           }
         });
       });
     }
   }
+
   getTaxon() {
     this.groups.forEach(elem => {
       this.taxonService.getComparisonTaxonomy('MX.37600', elem, this.translate.currentLang).subscribe(data => {
-        this.taxonomy = data.results;
-        this.loading = false;
+        this.taxonomy = data.results.filter(taxon => taxon.id!=this.taxon.id);
+        this.selected = data.results[this.current];
+        if (this.taxonomy.length > 0) {
+          this.hasTaxonomy = true;
+          this.loading = false;
+        } else {
+          this.hasTaxonomy = false;
+        }
       });
     });
   }
 
   ngOnDestroy() {
   }
-
 }

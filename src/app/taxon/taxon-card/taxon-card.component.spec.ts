@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ObservationComponent } from '../../observation/observation.component';
 import { ObservationService } from '../../shared/service/observation.service';
 import { SpinnerModule } from '../../shared-modules/spinner/spinner.module';
+import { CarouselModule } from 'ngx-bootstrap';
 
 
 describe('TaxonCardComponent', () => {
@@ -28,7 +29,7 @@ describe('TaxonCardComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TaxonCardComponent, LabelPipe, TaxonComparisonComponent, OmnisearchComponent,ObservationComponent],
       imports: [HttpClientModule, TranslateModule.forRoot(), CollapseModule.forRoot(),
-        RouterTestingModule, FormsModule, ReactiveFormsModule, AccordionModule, SpinnerModule],
+        RouterTestingModule, FormsModule, ReactiveFormsModule, AccordionModule, SpinnerModule, CarouselModule],
       providers: [TaxonService, ApiService, TranslateService, MetadataService,ObservationService]
     })
       .compileComponents();

@@ -54,6 +54,8 @@
   "comparison.title": "Jämför arter",
   "comparison.text": "Identifiera en art genom att jämföra den med närbesläktade arter i Finland",
   "comparison.card": "Artkort",
+  "comparison.info": "translate missing",
+  "comparison.nocomparison": "translate missing",
   "filist.h1":"Den nationella listan över invasiva främmande arter",
   "eulist.h1":"EU:s lista över invasiva främmande arter",
   "filist.obligations": "Läs mera om kommunernas förpliktelser angående arter på nationella listan",
