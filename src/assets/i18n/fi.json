@@ -67,6 +67,8 @@
   "comparison.card": "Lajikortti",
   "filist.h1":"Kansallinen haitallisten vieraslajien luettelo",
   "eulist.h1":"Eu:n haitallisten vieraslajien luettelo",
+  "filist.obligations":"Lue lisää mitä velvoitteita kunnilla on kansallisella vieraslajilistalla olevien lajeihin osalta",
+  "eulist.obligations":"Lue lisää mitä velvoitteita kunnilla on EU:n vieraslajilistalla olevien lajeihin osalta",
   "news.modified": "Päivitetty",
   "stableString.notyet":"Ei vielä suomessa",
   "stableString.unknown":"Tuntematon",
@@ -79,6 +81,8 @@
   "document.dayOfYearEdited":"Muokattu",
   "document.location":"Paikka",
   "observations.intro":"Löydät omat havaintosi täältä",
+  "observations.form.sighting": "Uusi havainto",
+  "observations.form.help": "Mikä laji?",
   "form.send": "Lähetä",
   "form.submitted": "Lähetys onnistui!"
 }

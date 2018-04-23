@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { UserService } from '../../shared/service/user.service';
 import { ApiService } from '../../shared/api/api.service';
 import { HttpClientModule } from '@angular/common/http';
+import { SpinnerModule } from '../../shared-modules/spinner/spinner.module';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -13,7 +14,7 @@ describe('LoginComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
-      imports: [ RouterTestingModule, HttpClientModule ],
+      imports: [ RouterTestingModule, HttpClientModule, SpinnerModule ],
       providers: [UserService, ApiService]
     })
     .compileComponents();

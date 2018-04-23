@@ -67,6 +67,8 @@
   "comparison.card": "Taxon card",
   "filist.h1":"National list of harmful invasive species",
   "eulist.h1":"EU list of harmful invasive species",
+  "filist.obligations": "Read more about obligations of municipalities regarding species on the national list",
+  "eulist.obligations": "Read more about obligations of municipalities regarding species on the EU list",
   "news.modified": "Modified",
   "stableString.notyet":"Not yet in Finland",
   "stableString.unknown":"Unknown",
@@ -78,7 +80,8 @@
   "document.dayOfYearEdited":"Edited",
   "document.location":"Location",
   "observations.intro":"You can find your own observations here",
-  "form.send": "Send",
+  "observations.form.sighting": "Report a sighting",
+  "observations.form.help": "Which species?",
   "form.submitted": "Form submitted!"
 
 

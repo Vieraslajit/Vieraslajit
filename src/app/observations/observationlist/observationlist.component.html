@@ -1,23 +1,31 @@
 <laji-spinner [spinning]="loading"></laji-spinner>
 
-<div class="container-fluid" *ngIf="loggedIn;else notLoggedIn">
-  <ng-container *ngIf="!loading">
-  <h1 id="heading" translate>observations.myobservations</h1>
-  <alert *ngIf="showAlert" type="success" [dismissible]="true" (onClosed)="alertClosed()">
-    <strong translate>form.submitted</strong>
-  </alert>
-  <div class="content">
-    <div id="intro" translate>observations.intro</div>
-    <ng-container>
-      <div class="tab-pane container" id="observationlisttable">
-        <ngx-datatable class="material selection-cell" [rows]="observations" [columnMode]="'force'" [columns]="columns" [headerHeight]="50"
-          [rowHeight]="50" [reorderable]='true' [selectionType]="'single'" [footerHeight]="50" (select)="onSelect($event)">
-        </ngx-datatable>
+  <div class="container-fluid" *ngIf="loggedIn;else notLoggedIn">
+    <h1 id="heading" translate>observations.myobservations</h1>
+    <alert *ngIf="showAlert" type="success" [dismissible]="true" (onClosed)="alertClosed()">
+      <strong translate>form.submitted</strong>
+    </alert>
+    <div class="content">
+      <div id="intro" translate>observations.intro</div>
+      <div class="container">
+        <div class="vrs-form-list text-right">
+          <hr class="form-list-hr">
+          <ul class="list-inline">
+            <li class="list-inline-item m-1"><a class="form-list-item" routerLink="/form/JX.123757" translate>observations.form.sighting</a></li>
+            <li class="list-inline-item m-1"><a class="form-list-item" routerLink="/form/MHL.9" translate>observations.form.help</a></li>
+          </ul>
+        </div>
       </div>
-    </ng-container>
+      <ng-container>
+        <div class="tab-pane container" id="observationlisttable">
+          <ngx-datatable class="material selection-cell" [rows]="observations" [columnMode]="'force'" [columns]="columns" [headerHeight]="50"
+            [rowHeight]="50" [reorderable]='true' [selectionType]="'single'" [footerHeight]="50" (select)="onSelect($event)">
+          </ngx-datatable>
+        </div>
+      </ng-container>
+    </div>
   </div>
-  </ng-container>
-</div>
+
 <ng-template #notLoggedIn>
   <br>
   <p translate>form.login</p>

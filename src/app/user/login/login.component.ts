@@ -29,7 +29,12 @@ export class LoginComponent implements OnInit {
       // save laji-auth token to userproperties
       UserService.setToken(this.activatedRoute.snapshot.queryParams['token']);
       // update userproperties with laji api data
-      this.userService.updateUserProperties(UserService.getToken()).subscribe(()=>{
+      this.userService.updateUserProperties(UserService.getToken()).subscribe((err)=>{
+        if(err) {
+          alert("Login failed: Invalid person-token\nStatus: " + err.status + "\nDescription: " + err.statusText);
+          this.router.navigateByUrl("/home");
+          return;
+        }
         this.router.navigateByUrl(UserService.getUserProperties()["person-token"].next);
       });
     } else {
