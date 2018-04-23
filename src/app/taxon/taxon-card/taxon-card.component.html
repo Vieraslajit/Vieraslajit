@@ -153,7 +153,12 @@
 
 </div>
 <div *ngIf="comparison && taxon && media">
-  <button class="btn btn-primary" (click)="comparisonView()" translate>comparison.card</button>
+  <div class="container">
+    <br>
+    <div class="float-right">
+        <button class="btn btn-secondary btn-sm" (click)="comparisonView()" translate><span class="oi oi-action-undo"></span> comparison.return</button>
+    </div>
+  </div>
   <vrs-taxon-comparison [taxon]="taxon" [media]="media[0]"></vrs-taxon-comparison>
 </div>
 </ng-container>

@@ -16,8 +16,13 @@ export class TaxonComparisonComponent implements OnInit, OnDestroy {
   private subTrans: any;
   
   loading: boolean = true;
+  hasTaxonomy = false;
   groups = [];
   taxonomy: Taxonomy[];
+  multimedia: TaxonomyImage[];
+  selected: Taxonomy;
+  current = 0;
+  
 
   constructor(private taxonService: TaxonService, private translate: TranslateService) { }
 
@@ -26,31 +31,61 @@ export class TaxonComparisonComponent implements OnInit, OnDestroy {
     this.update();
   }
 
+  next() {
+    this.current = this.current + 1;
+    if (this.current > this.taxonomy.length - 1) {
+      this.current = 0;
+    }
+    this.selected = this.taxonomy[this.current];
+  }
+
+  prev() {
+    this.current = this.current - 1;
+    if (this.current < 0) {
+      this.current = this.taxonomy.length - 1;
+    }
+    this.selected = this.taxonomy[this.current];
+  }
+
+  changeSelected(event) {
+    this.selected = this.taxonomy[event];
+    this.current = event;
+  }
+
+  hasTaxonomys() {
+    return this.hasTaxonomy;
+  }
+
   update() {
     if (this.taxon) {
       this.taxon.informalTaxonGroups.forEach((elem, index, arr) => {
         this.taxonService.getGroupChildren(elem).subscribe((data) => {
           if (data.results.length === 0) {
-            this.groups.push(elem);
+            this.groups.push(elem);          
           }
         }, err => err, () => {
           if (index === arr.length - 1) {
             this.getTaxon();
+            this.loading = false;
           }
         });
       });
     }
   }
+
   getTaxon() {
     this.groups.forEach(elem => {
       this.taxonService.getComparisonTaxonomy('MX.37600', elem, this.translate.currentLang).subscribe(data => {
-        this.taxonomy = data.results;
+        this.taxonomy = data.results.filter(taxon => taxon.id!=this.taxon.id);
+        this.selected = data.results[this.current];
         this.loading = false;
+        if (this.taxonomy.length > 0) {
+          this.hasTaxonomy = true;
+        }
       });
     });
   }
 
   ngOnDestroy() {
   }
-
 }

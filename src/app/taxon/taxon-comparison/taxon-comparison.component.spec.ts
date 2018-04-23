@@ -11,6 +11,7 @@ import { MetadataService } from '../../shared/service/metadata.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { OmnisearchComponent } from '../../shared/omnisearch';
 import { SpinnerModule } from '../../shared-modules/spinner/spinner.module';
+import { CarouselModule } from 'ngx-bootstrap';
 
 describe('TaxonComparisonComponent', () => {
   let component: TaxonComparisonComponent;
@@ -20,7 +21,7 @@ describe('TaxonComparisonComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TaxonComparisonComponent, LabelPipe, OmnisearchComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule, HttpClientModule,
-        FormsModule, ReactiveFormsModule, SpinnerModule],
+        FormsModule, ReactiveFormsModule, SpinnerModule, CarouselModule],
       providers: [TaxonService, ApiService, MetadataService]
     })
       .compileComponents();

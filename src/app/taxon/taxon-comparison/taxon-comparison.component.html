@@ -1,60 +1,134 @@
 <laji-spinner [spinning]="loading"></laji-spinner>
 
 <ng-container *ngIf=!loading>
-<div class="container-fluid">
-  <h1 translate>comparison.title</h1>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eleifend imperdiet leo nec dictum. Proin sem nibh, pharetra
-    vitae nisl non, iaculis pulvinar lacus. Aliquam vehicula erat massa, in rhoncus libero egestas cursus. Duis finibus condimentum
-    quam, ut tempor ante tincidunt et. Pellentesque ornare leo eu augue bibendum, et pulvinar lorem vulputate. Nulla eu pulvinar
-    lectus. Duis tristique pretium quam, quis maximus sem bibendum vel. Morbi eget dolor sollicitudin, dignissim lorem vel,
-    commodo metus.
-  </p>
-  <vrs-omnisearch [comparisonView]="true"></vrs-omnisearch>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card" *ngIf="taxon">
-        <div class="card-header">
-          <strong>{{taxon?.vernacularName}}</strong>
-        </div>
-        <div class="card-block">
-          <img src="{{media.thumbnailURL}}" style="padding: 2px" />
-        </div>
-        <div class="card-block">
-          <div>
-            <strong translate>taxon.name</strong>
-            {{taxon?.vernacularName}}
-          </div>
-          <div>
-            <strong translate>taxon.scientific</strong>
-            <em>{{taxon?.scientificName}}</em>
-          </div>
-          <ng-container *ngIf="taxon?.administrativeStatuses">
-            <div>
-              <ul>
-                <li *ngFor="let status of taxon.administrativeStatuses">
-                  {{status | label: 'MX.adminStatusEnum' | async}}
-                </li>
-              </ul>
-            </div>
-          </ng-container>
-          <div>
-            <strong translate>taxon.establishedFin</strong>
-            <span translate>{{taxon?.stableInFinland == true ? 'taxonomy.yes' : 'taxonomy.no' }}</span>
-          </div>
-          <div>
-            <strong translate>taxon.occurrence</strong>
-            <span>{{(taxon?.occurrenceInFinland | label: 'MX.occurrenceInFinlandEnum' | async) || 'taxon.unknown' | translate }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card" *ngFor="let species of taxonomy">
-        <a [routerLink]="['/taxon', species.id]">
-          <strong>{{species.vernacularName}} | ({{species.scientificName}})</strong>
-        </a>
-      </div>
-    </div>
+<div class="container">
+  <div>
+      <h1 translate>comparison.title</h1>
+      <p translate>comparison.info
+      </p>
   </div>
-</div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card" *ngIf="taxon">
+          <div class="card-header">
+            <span>{{taxon?.vernacularName}}</span>
+          </div>
+          <div class="card-block">
+              <carousel [interval]="false">
+                  <slide>
+                      <img src="{{media.fullURL}}" id="multimedia" alt="First slide" style="display: block; width: 100%;">
+                      <div class="carousel-caption d-none d-md-block">
+                      </div>
+                    </slide>
+              </carousel>
+          </div>
+          <div class="card-block">
+              <div class="card-body">
+            <div>
+              <strong translate>taxon.name</strong>
+              {{taxon?.vernacularName}}
+            </div>
+            <div>
+              <strong translate>taxon.scientific</strong>
+              <em>{{taxon?.scientificName}}</em>
+            </div>
+            <ng-container *ngIf="taxon?.administrativeStatuses">
+              <div>
+                <ul>
+                  <li *ngFor="let status of taxon.administrativeStatuses">
+                    {{status | label: 'MX.adminStatusEnum' | async}}
+                  </li>
+                </ul>
+              </div>
+            </ng-container>
+            <div>
+              <strong translate>taxon.establishedFin</strong>
+              <span translate>{{taxon?.stableInFinland == true ? 'taxonomy.yes' : 'taxonomy.no' }}</span>
+            </div>
+            <div>
+              <strong translate>taxon.occurrence</strong>
+              <span>{{(taxon?.occurrenceInFinland | label: 'MX.occurrenceInFinlandEnum' | async) || 'taxon.unknown' | translate }}</span>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="!hasTaxonomys()">
+        <div class="col-md-6">
+          <p translate>
+            comparison.nocomparison
+          </p>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="hasTaxonomys()">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-6">
+                  <div class="dropdown" id="carouseldropdown" dropdown>
+                      <a dropdownToggle class="dropdown-toggle" aria-controls="dropdown-basic">
+                         {{selected?.vernacularName}} <span class="caret"></span>
+                      </a>
+                      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu">
+                        <li *ngFor="let taxon of taxonomy; let i = index" (click)="changeSelected(i)" role="menuitem"><a class="dropdown-item" id="carouselmenuitem">{{taxon?.vernacularName}}</a></li>
+                      </ul>
+                    </div>
+              </div>
+              <div class="col-6">
+                  <div class="row">
+                    <div class="col-3"><button (click)="prev()" class="btn btn-primary btn-sm oi oi-caret-left icon float-left" id="caret-left"></button></div>
+                    <div class="col-6 text-center" id="currentindex">
+                         {{current + 1}} / {{taxonomy?.length}}
+                    </div>
+                    <div class="col-3"><button (click)="next()" class="btn btn-primary btn-sm oi oi-caret-right icon float-right" id="caret-right"></button></div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="card-block">
+              <carousel [interval]="false">
+                  <slide *ngFor="let media of selected?.multimedia">
+                      <img src="{{media.fullURL}}" id="multimedia" alt="First slide" style="display: block; width: 100%;">
+                      <div class="carousel-caption d-none d-md-block">
+                      </div>
+                    </slide>
+              </carousel>
+          </div>
+          <div class="card-block">
+              <div class="card-body">
+            <div>
+              <strong translate>taxon.name</strong>
+              {{selected?.vernacularName}}
+            </div>
+            <div>
+              <strong translate>taxon.scientific</strong>
+              <em>{{selected?.scientificName}}</em>
+            </div>
+            <ng-container *ngIf="taxon?.administrativeStatuses">
+              <div>
+                <ul>
+                  <li *ngFor="let status of taxon.administrativeStatuses">
+                    {{status | label: 'MX.adminStatusEnum' | async}}
+                  </li>
+                </ul>
+              </div>
+            </ng-container>
+            <div>
+              <strong translate>taxon.establishedFin</strong>
+              <span translate>{{taxon?.stableInFinland == true ? 'taxonomy.yes' : 'taxonomy.no' }}</span>
+            </div>
+            <div>
+              <strong translate>taxon.occurrence</strong>
+              <span>{{(taxon?.occurrenceInFinland | label: 'MX.occurrenceInFinlandEnum' | async) || 'taxon.unknown' | translate }}</span>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      </ng-container>
+    </div>
+    <br><br>
+  </div>
 </ng-container>
