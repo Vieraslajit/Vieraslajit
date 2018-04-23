@@ -16,7 +16,7 @@ export class TaxonComparisonComponent implements OnInit, OnDestroy {
   private subTrans: any;
   
   loading: boolean = true;
-  hasTaxonomy = false;
+  hasTaxonomy: boolean;
   groups = [];
   taxonomy: Taxonomy[];
   multimedia: TaxonomyImage[];
@@ -61,12 +61,14 @@ export class TaxonComparisonComponent implements OnInit, OnDestroy {
       this.taxon.informalTaxonGroups.forEach((elem, index, arr) => {
         this.taxonService.getGroupChildren(elem).subscribe((data) => {
           if (data.results.length === 0) {
-            this.groups.push(elem);          
+            this.groups.push(elem);
           }
         }, err => err, () => {
           if (index === arr.length - 1) {
             this.getTaxon();
-            this.loading = false;
+            setInterval(() => {
+              this.loading = false;
+            }, 2000); 
           }
         });
       });
@@ -78,9 +80,11 @@ export class TaxonComparisonComponent implements OnInit, OnDestroy {
       this.taxonService.getComparisonTaxonomy('MX.37600', elem, this.translate.currentLang).subscribe(data => {
         this.taxonomy = data.results.filter(taxon => taxon.id!=this.taxon.id);
         this.selected = data.results[this.current];
-        this.loading = false;
         if (this.taxonomy.length > 0) {
           this.hasTaxonomy = true;
+          this.loading = false;
+        } else {
+          this.hasTaxonomy = false;
         }
       });
     });
