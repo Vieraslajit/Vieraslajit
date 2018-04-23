@@ -65,6 +65,8 @@
   "comparison.title": "Taxon comparison",
   "comparison.text": "Identify a species by comparing it to similar species established in Finland",
   "comparison.card": "Taxon card",
+  "comparison.info": "translate missing",
+  "comparison.nocomparison": "translate missing",
   "filist.h1":"National list of harmful invasive species",
   "eulist.h1":"EU list of harmful invasive species",
   "filist.obligations": "Read more about obligations of municipalities regarding species on the national list",
