@@ -124,3 +124,19 @@
     cursor: pointer;
     padding-left: 10px;
 }
+
+#personbutton {
+    color: $content-background;
+}
+
+#usermenuitem {
+    cursor: pointer;
+}
+
+#usermenuitem:hover {
+    color: $primary;
+}
+
+#usermenuitem:active {
+    background-color: $content-background;
+}

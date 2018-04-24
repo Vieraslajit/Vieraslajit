@@ -48,8 +48,13 @@
                         <a href='{{loginUrl}}' class="nav-link" translate>navigation.login</a>
                     </ng-template>
                     <ng-template #welcome_content>
-                        welcome {{userPropertiesWrapper().person.fullName}}
-                        <button (click)="logout()">Logout</button>
+                        <div class="dropdown" id="userdropdown" dropdown>
+                            <button dropdownToggle class="btn btn-primary btn-sm oi oi-person icon dropdown-toggle" aria-controls="dropdown-basic" id="personbutton"></button>
+                            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+                              <li role="usermenuitem"><span class="dropdown-item" id="usermenuitem">{{userPropertiesWrapper().person.fullName}}</span></li>
+                              <li (click)="logout()" role="usermenuitem"><span class="dropdown-item" id="usermenuitem">Logout</span></li>
+                            </ul>
+                          </div>
                     </ng-template>
                   </li>
                   <li class="nav-item" id="language-selector">
