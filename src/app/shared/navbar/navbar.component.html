@@ -23,19 +23,17 @@
                     <a class="nav-link" routerLink="/news" routerLinkActive="vrs-nav-active" (click)="isCollapsed = !isCollapsed"
                     aria-expanded="false" translate>navigation.news</a>
                 </li>
-
-                    <li class="dropdown" id="dropdown-about" dropdown>
-                        <a  class="dropdown-toggle py-2" id="dropdown-toggle" translate>navigation.about <span class="caret"></span></a>
-                            <ul *dropdownMenu class="dropdown-menu" id="dropdown-menu" role="menu">
-                                <li *ngFor="let child of menu" role="menuitem"><a class="dropdown-item" id="dropdown-menu-item"
-                                     routerLink="static/{{child.id}}">{{child.title}}</a></li>
-                            </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/observations" routerLinkActive="vrs-nav-active" (click)="isCollapsed = !isCollapsed"
-                        aria-expanded="false" translate>navigation.observations</a>
-                    </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/observations" routerLinkActive="vrs-nav-active" (click)="isCollapsed = !isCollapsed"
+                    aria-expanded="false" translate>navigation.observations</a>
+                </li>
+                <li class="dropdown" id="dropdown-about" dropdown #dropdownAbout>
+                    <a  class="dropdown-toggle py-2" id="dropdown-toggle" translate>navigation.about <span class="caret"></span></a>
+                    <ul *dropdownMenu class="dropdown-menu" id="dropdown-menu" role="menu">
+                        <li *ngFor="let child of menu" role="menuitem"><a class="dropdown-item" id="dropdown-menu-item"
+                                routerLink="static/{{child.id}}">{{child.title}}</a></li>
+                    </ul>
+                </li>
             </ul>
 
             <div class= "ml-auto">
@@ -49,7 +47,7 @@
                         <a href='{{loginUrl}}' class="nav-link" translate>navigation.login</a>
                     </ng-template>
                     <ng-template #welcome_content>
-                        <div class="dropdown" id="userdropdown" dropdown>
+                        <div class="dropdown" id="dropdown-user" dropdown #dropdown>
                             <button dropdownToggle class="btn btn-sm oi oi-person icon dropdown-toggle" aria-controls="dropdown-basic" id="personbutton"></button>
                             <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
                               <li role="usermenuitem"><span class="dropdown-item" id="usermenuitem">{{userPropertiesWrapper().person.fullName}}</span></li>

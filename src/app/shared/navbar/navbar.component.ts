@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, AfterViewChecked, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { SearchComponent } from '../googlesearch/search/search.component';
@@ -16,7 +16,7 @@ import { BsDropdownDirective } from '../../../../node_modules/ngx-bootstrap';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, AfterViewChecked, AfterViewInit {
   modalRef: BsModalRef;
   loginUrl = '#';
   isCollapsed = false;
@@ -26,15 +26,14 @@ export class NavbarComponent implements OnInit {
   translateSub: Subscription;
   rootId: string = "";
   currentId: string= "";
+  private dropdown_user_bound = false;
 
-  @ViewChild(BsDropdownDirective)
-  d : BsDropdownDirective
+  @ViewChildren(BsDropdownDirective) d : QueryList<BsDropdownDirective>;
   
   constructor(private modalService: BsModalService, private router: Router, private userService: UserService,
      private informationService: InformationService, private translate:TranslateService) {
-
-    this.loginSub = userService.loginStateChange.subscribe(() => {
-      this.loggedIn = UserService.loggedIn();
+      this.loginSub = userService.loginStateChange.subscribe(() => {
+        this.loggedIn = UserService.loggedIn();
       if(this.loggedIn == false) {
         // Use reload hack to force re-render of the component
         this.router.navigate(["reload/" + this.router.url]);
@@ -54,11 +53,26 @@ export class NavbarComponent implements OnInit {
       this.setCMSRootId(event.lang);
       this.update();
     });  
+  }
 
+  ngAfterViewInit() {
     /* Dropdown toggle */
-    $(".dropdown").on("mouseenter mouseleave", ()=>{
-      this.d.toggle(true);
+    $("#dropdown-about").on("mouseenter mouseleave", ()=>{
+      this.d.first.toggle(true);
     });
+  }
+
+  /* dropdown-user is inside an *ngIf statement, so it can't be selected until the if statement is evaluated*/
+  ngAfterViewChecked() {
+    if(!this.dropdown_user_bound) {
+      /* wait for the dropdown-user element to appear before binding */
+      if($("#dropdown-user").length !== 0) {
+        $("#dropdown-user").on("mouseenter mouseleave", ()=>{
+          this.d.last.toggle(true);
+        });
+        this.dropdown_user_bound = true;
+      }
+    }
   }
 
   /**
